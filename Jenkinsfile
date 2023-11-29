@@ -1,32 +1,37 @@
-pipeline{
-	agent{
-		node{
-			label "slave-1"
-			customWorkspace "/mnt/vel-app/ "
-}
-}
+pipeline {
 
-	stages{
-		stage("install httpd"){
-			steps{
-				sh "sudo yum install httpd -y"				
-}
-}
-		stage("git clone"){
-			steps{
-				git url:"https://github.com/guddu2551/repo-1-assignment.git", branch:"23Q2"
-}
-		stage("html"){
-			steps{
-				sh "sudo cp -r ./index.html /var/www/html/"
-				sh "sudo chmod -R 777 /var/www/html/"
-}
-}
-		stage("deploy"){
-			steps{
-				sh"sudo yum httpd restart"
-}
-}
-}
-}
-}
+    agent {
+      label {
+        label "built-in"
+        customWorkspace "/mnt/branch1"
+          }
+       }
+
+    stages {
+      
+       stage ("1st") {
+          steps {
+
+          sh "sudo yum install httpd -y"
+             }
+          }
+
+       stage ("2nd") {
+              steps {
+           git url:"https://github.com/guddu2551/repo-1-assignment.git", branch:"23Q2"
+                   }
+            }
+
+       stage ("3rd") {
+              steps {
+              sh "sudo cp ./index.html /var/www/html"
+              sh "sudo chmod -R 777 /var/www/html"
+                    }
+               }
+        stage ("4th") {
+           steps {
+            sh "sudo service httpd restart"
+                    }
+                 }
+           }
+       }
