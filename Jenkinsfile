@@ -16,6 +16,7 @@ pipeline{
 			steps{
 				git url:"https://github.com/guddu2551/repo-1-assignment.git", branch:"23Q3"
 }
+		}
 		stage("html"){
 			steps{
 				sh "sudo cp -r index.html /var/www/html/"
@@ -25,7 +26,6 @@ pipeline{
 		stage("deploy"){
 			steps{
 				sh"sudo yum httpd restart"
-}
 }
 }
 }
